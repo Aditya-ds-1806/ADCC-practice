@@ -16,10 +16,10 @@ export default class Helpers {
 
         this.qfunc = (arg) => 0.5 * jStat.erfc(arg / Math.SQRT2);
 
-        this.getTheoreticalBERBPSK = (EB_N0_DB) => EB_N0_DB
+        this.getTheoreticalBerBpsk = (EB_N0_DB) => EB_N0_DB
             .map((EB_N0) => this.qfunc(Math.sqrt(2 * (10 ** (EB_N0 / 10)))));
 
-        this.getTheoreticalBERQPSK = (EB_N0_DB) => EB_N0_DB
+        this.getTheoreticalSerQpsk = (EB_N0_DB) => EB_N0_DB
             .map((EB_N0) => 2 * this.qfunc(Math.sqrt(10 ** (EB_N0 / 10)))
                 - this.qfunc(Math.sqrt(10 ** (EB_N0 / 10))) ** 2);
 
