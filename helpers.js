@@ -63,7 +63,7 @@ export default class Helpers {
                     exponentformat: 'power',
                     tickmode: 'linear',
                     title: {
-                        text: 'BER',
+                        text: 'SER',
                         font: {
                             size: 20,
                         },
@@ -73,9 +73,9 @@ export default class Helpers {
             Plotly.newPlot('plot', traces, layout);
         };
 
-        this.saveData = (EB_N0_DB, BER, fileName) => {
+        this.saveData = (EB_N0_DB, SER, fileName) => {
             const data = new Array(EB_N0_DB.length).fill(0)
-                .map((_, i) => [EB_N0_DB[i], BER[i]])
+                .map((_, i) => [EB_N0_DB[i], SER[i]])
                 // eslint-disable-next-line no-return-assign, no-param-reassign
                 .reduce((acc, entry) => acc += `${entry.join(' ')}\n`, '');
             const blob = new Blob([data], {
