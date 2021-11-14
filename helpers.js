@@ -14,8 +14,14 @@ export default class Helpers {
             return entries;
         };
 
-        this.getTheoreticalBER = (arr) => arr
-            .map((entry) => 0.5 * jStat.erfc(Math.sqrt(2 * 10 ** (entry / 10)) / Math.SQRT2));
+        this.qfunc = (arg) => 0.5 * jStat.erfc(arg / Math.SQRT2);
+
+        this.getTheoreticalBERBPSK = (EB_N0_DB) => EB_N0_DB
+            .map((EB_N0) => this.qfunc(Math.sqrt(2 * (10 ** (EB_N0 / 10)))));
+
+        this.getTheoreticalBERQPSK = (EB_N0_DB) => EB_N0_DB
+            .map((EB_N0) => 2 * this.qfunc(Math.sqrt(10 ** (EB_N0 / 10)))
+                - this.qfunc(Math.sqrt(10 ** (EB_N0 / 10))) ** 2);
 
         this.randi = ([min, max], count) => {
             const integers = [];
