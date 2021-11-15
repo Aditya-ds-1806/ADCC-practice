@@ -73,6 +73,20 @@ export default class Helpers {
             Plotly.newPlot('plot', traces, layout);
         };
 
+        this.indexOf = (arr1, arr2) => {
+            for (let i = 0; i < arr1.length; i += 1) {
+                if (arr1[i].toString() === arr2.toString()) return i;
+            }
+            return -1;
+        };
+
+        this.dec2bin = (number, length) => {
+            let binaryString = '';
+            for (let i = 0; i < length - 1; i += 1) binaryString += '0';
+            binaryString += number.toString(2);
+            return binaryString.slice(-length);
+        };
+
         this.saveData = (EB_N0_DB, SER, fileName) => {
             const data = new Array(EB_N0_DB.length).fill(0)
                 .map((_, i) => [EB_N0_DB[i], SER[i]])
