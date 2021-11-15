@@ -26,7 +26,7 @@ const Sk = Bk.reduce((acc, bit, i) => { // modulation
 const SER = new Array(EB_N0_DB.length);
 
 for (let i = 0; i < EB_N0_DB.length; i += 1) {
-    const Nk = h.getAWGN(EB_N0_DB[i], [NO_OF_SYMBOLS, 2]);
+    const Nk = h.getAWGN(EB_N0_DB[i], [NO_OF_SYMBOLS, 2]); // AWGN noise
     const Yk = new Array(NO_OF_SYMBOLS).fill(0).map((_, j) => h.sum(Sk[j], Nk[j]));
     const sHat = Yk.map(([x1, y1]) => {
         let shortestDistance = Infinity;
