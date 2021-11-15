@@ -5,19 +5,76 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/default.min.css">
     <link rel="stylesheet" href="../index.css">
     <title>Binary Phase Shift Keying(BPSK)</title>
 </head>
 
-<body>
-    <h1>Binary Phase Shift Keying(BPSK)</h1>
-    <div id="plot"></div>
-    <button id="simulation">Save Simulation Data</button>
-    <button id="theory">Save Theoretical Data</button>
+<body class="container">
+    <header class="text-center my-5 py-3">
+        <h1 class="display-4">Design of BPSK Receivers and BER Analysis</h1>
+        <h1 class="text-secondary">Experiment - 1</h1>
+    </header>
+
+    <main>
+        <section class="mb-5">
+            <h2>1 Aim</h2>
+            <p>To design a discrete time BPSK communication receiver, and analyze the BER performance.</p>
+        </section>
+        <section class="mb-5">
+            <h2>2 Theory</h2>
+        </section>
+        <section class="mb-5">
+            <h2>3 Design</h2>
+            <code class="fs-6">
+                <pre>
+Input: NO_OF_BITS, EB_N0_DB, Bk
+Output: BER
+
+Xk = Bk(0 --> 1, 1 --> -1)
+ML(point) = (0 if point > 0; 1 if point < 0)
+
+for EB_N0 in EB_N0_DB
+    Nk = AWGN(EB_N0, 1D)
+    Yk = Xk + Nk
+    bHat = ML(Yk)
+    unchangedBits = count(bHat === Bk)
+    BER = 1 - (unchangedBits/NO_OF_BITS)
+
+plot(BER, BER_THEORETICAL)
+                </pre>
+            </code>
+        </section>
+        <section id="code" class="mb-5">
+            <h2>4 JavaScript Code</h2>
+        </section>
+        <section class="mb-5">
+            <h2>5 Results</h2>
+            <div id="plot"></div>
+            <div class="d-flex justify-content-center mt-4">
+                <button class="btn btn-primary mx-5" id="simulate">
+                    Simulate
+                    <span class="spinner-border spinner-border-sm d-none"></span>
+                </button>
+                <button class="btn btn-primary mx-5" id="simulation" disabled>Save Simulation Data</button>
+                <button class="btn btn-primary mx-5" id="theory" disabled>Save Theoretical Data</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <section class="mb-5">
+            <h2>6 Inference</h2>
+        </section>
+    </footer>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jstat/1.9.5/jstat.min.js"
         integrity="sha512-MGT8BGoc8L3124PwHEGTC+M8Hu9oIbZOg8ENcd92sQKKidWKOOOZ6bqQemqYAX0yXJUnovOkF4Hx9gc/5lVxPw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.plot.ly/plotly-2.4.2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
     <script type="module" src="../helpers.js"></script>
     <script type="module" src="index.js"></script>
 </body>
