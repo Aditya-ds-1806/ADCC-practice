@@ -23,6 +23,9 @@ export default class Helpers {
             .map((EB_N0) => 2 * this.qfunc(Math.sqrt(10 ** (EB_N0 / 10)))
                 - this.qfunc(Math.sqrt(10 ** (EB_N0 / 10))) ** 2);
 
+        this.getTheoreticalBerBfsk = (EB_N0_DB) => EB_N0_DB
+            .map((EB_N0) => this.qfunc(Math.sqrt((10 ** (EB_N0 / 10)))));
+
         this.randi = ([min, max], count) => {
             const integers = [];
             // eslint-disable-next-line no-plusplus, no-param-reassign
