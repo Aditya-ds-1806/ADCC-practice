@@ -6,12 +6,11 @@ const h = new Helpers();
 const NO_OF_BITS = 10 ** 6;
 const EB_N0_DB = h.linspace(0, 10, 25e-2);
 const BER_THEORETICAL = h.getTheoreticalBerBpsk(EB_N0_DB);
-let BER = [];
+const BER = new Array(EB_N0_DB.length);
 
 const bpskModulator = () => {
     const Bk = h.randi([0, 1], NO_OF_BITS); // message
     const Xk = Bk.map((bit) => (bit === 0 ? 1 : -1)); // modulation
-    BER = new Array(EB_N0_DB.length).fill(0);
     for (let i = 0; i < EB_N0_DB.length; i += 1) {
         const Nk = h.getAWGN(EB_N0_DB[i], [NO_OF_BITS, 1]); // AWGN Noise
         const Yk = h.sum(Xk, Nk);
@@ -26,7 +25,7 @@ const bpskModulator = () => {
     return BER;
 };
 
-h.plot(['Theoretical', 'Simulation'], [EB_N0_DB, BER_THEORETICAL], [EB_N0_DB, [0]]);
+h.plot(['Theoretical', 'Simulation'], [EB_N0_DB, BER_THEORETICAL], [EB_N0_DB, BER]);
 
 const simulationData = document.getElementById('simulation');
 const theoreticalData = document.getElementById('theory');
