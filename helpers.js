@@ -73,7 +73,10 @@ export default class Helpers {
                     },
                 },
             };
-            Plotly.newPlot('plot', traces, layout);
+            const config = {
+                responsive: true,
+            };
+            Plotly.newPlot('plot', traces, layout, config);
         };
 
         this.getAWGN = (EB_N0_DB, [rows, cols]) => {
