@@ -1,4 +1,4 @@
-const { Plotly, jStat } = window;
+const { Plotly, jStat, hljs } = window;
 
 export default class Helpers {
     constructor() {
@@ -121,6 +121,25 @@ export default class Helpers {
             link.download = `${fileName}.dat`;
             link.href = blobURL;
             link.click();
+        };
+
+        this.fetchJS = (...fileNames) => {
+            const codeElement = document.getElementById('code');
+            fileNames.forEach(async (fileName) => {
+                const h3 = document.createElement('h3');
+                const code = document.createElement('code');
+                const pre = document.createElement('pre');
+                const urls = {
+                    index: `${window.location.href}/index.js`,
+                    helpers: `${window.location.origin}/helpers.js`,
+                };
+                const js = await (await fetch(urls[fileName])).text();
+                h3.textContent = `${fileName}.js`;
+                code.append(js);
+                pre.append(code);
+                codeElement.append(h3, pre);
+                hljs.highlightAll();
+            });
         };
     }
 }
