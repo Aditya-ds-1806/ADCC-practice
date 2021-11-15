@@ -11,7 +11,7 @@ const EB_N0_DB = h.linspace(0, 10, 25e-2);
 const SER_THEORETICAL = h.getTheoreticalSerQpsk(EB_N0_DB);
 const SER = new Array(EB_N0_DB.length);
 
-const mpsk = () => {
+const mpsk = (M) => {
     const phases = new Array(M).fill(0).map((_, i) => (2 * i * Math.PI) / M);
     const constellation = phases.map((phase) => [Math.cos(phase), Math.sin(phase)]);
     const Bk = h.randi([0, 1], NO_OF_BITS); // message
@@ -59,9 +59,12 @@ theoreticalData.addEventListener('click', () => h.saveData(EB_N0_DB, SER_THEORET
 simulationData.addEventListener('click', () => h.saveData(EB_N0_DB, SER, 'simulation'));
 
 document.getElementById('simulate').addEventListener('click', async () => {
+    const mInput = document.getElementById('M');
+    const m = 2 ** Math.floor(Math.log2(Number(mInput.value || 8)));
+    mInput.value = m;
     spinner.classList.remove('d-none');
     setTimeout(() => {
-        mpsk();
+        mpsk(m);
         h.plot(['Theoretical', 'Simulation'], [EB_N0_DB, SER_THEORETICAL], [EB_N0_DB, SER]);
         simulationData.disabled = false;
         theoreticalData.disabled = false;
