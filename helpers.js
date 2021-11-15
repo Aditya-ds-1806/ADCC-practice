@@ -73,6 +73,21 @@ export default class Helpers {
             Plotly.newPlot('plot', traces, layout);
         };
 
+        this.getAWGN = (EB_N0_DB, [rows, cols]) => {
+            const awgn = this.randn(rows * cols)
+                .map((N) => N / Math.sqrt(2 * (10 ** (EB_N0_DB / 10))));
+            if (cols === 1) return awgn;
+            return awgn.reduce((acc, N, j) => {
+                if (j % cols === 0) {
+                    const diNoise = [N];
+                    acc.push(diNoise);
+                } else {
+                    acc[acc.length - 1].push(N);
+                }
+                return acc;
+            }, []);
+        };
+
         this.indexOf = (arr1, arr2) => {
             for (let i = 0; i < arr1.length; i += 1) {
                 if (arr1[i].toString() === arr2.toString()) return i;

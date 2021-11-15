@@ -11,9 +11,7 @@ const Xk = Bk.map((bit) => (bit === 0 ? 1 : -1)); // modulation
 const BER = new Array(EB_N0_DB.length).fill(0);
 
 for (let i = 0; i < EB_N0_DB.length; i += 1) {
-    const Nk = h
-        .randn(NO_OF_BITS)
-        .map((N) => N / Math.sqrt(2 * (10 ** (EB_N0_DB[i] / 10)))); // AWGN Noise
+    const Nk = h.getAWGN(EB_N0_DB[i], [NO_OF_BITS, 1]); // AWGN Noise
     const Yk = h.sum(Xk, Nk);
     const bHat = Yk.map((point) => Number(point < 0)); // ML decision rule
     const unchangedBits = Bk.reduce((acc, bit, j) => {

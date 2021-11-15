@@ -21,19 +21,8 @@ const Sk = Bk.reduce((acc, bit, i) => { // modulation
 const SER = new Array(EB_N0_DB.length);
 
 for (let i = 0; i < EB_N0_DB.length; i += 1) {
-    const Nk = h
-        .randn(NO_OF_BITS)
-        .map((N) => N / Math.sqrt(2 * (10 ** (EB_N0_DB[i] / 10))))
-        .reduce((acc, N, j) => {
-            if (j % 2 === 0) {
-                const diNoise = [N];
-                acc.push(diNoise);
-            } else {
-                acc[acc.length - 1].push(N);
-            }
-            return acc;
-        }, []);
-    const Yk = new Array(NO_OF_BITS / 2).fill(0).map((_, j) => h.sum(Sk[j], Nk[j]));
+    const Nk = h.getAWGN(EB_N0_DB[i], [NO_OF_SYMBOLS, 2]);
+    const Yk = new Array(NO_OF_SYMBOLS).fill(0).map((_, j) => h.sum(Sk[j], Nk[j]));
     const sHat = Yk.map(([bit1, bit2]) => {
         if (bit1 >= 0 && bit2 >= 0) return [0, 0];
         if (bit1 <= 0 && bit2 >= 0) return [1, 0];
