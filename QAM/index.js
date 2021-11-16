@@ -10,7 +10,7 @@ const SER_THEORETICAL = h.getTheoreticalSerQam8(EB_N0_DB);
 const SER = new Array(EB_N0_DB.length);
 const constellation = h.linspace(-1.5, 1.5, 1).map((point) => [[point, 0.5], [point, -0.5]]).flat();
 
-const qam = () => {
+const QAM = () => {
     const Bk = h.randi([0, 1], NO_OF_BITS); // message
     const Sk = Bk.reduce((acc, bit, i) => { // modulation
         if (i % 3 === 0) {
@@ -59,7 +59,7 @@ simulationData.addEventListener('click', () => h.saveData(EB_N0_DB, SER, 'simula
 document.getElementById('simulate').addEventListener('click', async () => {
     spinner.classList.remove('d-none');
     setTimeout(() => {
-        qam();
+        QAM();
         h.plot(['Theoretical', 'Simulation'], [EB_N0_DB, SER_THEORETICAL], [EB_N0_DB, SER]);
         simulationData.disabled = false;
         theoreticalData.disabled = false;

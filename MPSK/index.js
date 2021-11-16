@@ -8,7 +8,7 @@ const EB_N0_DB = h.linspace(0, 10, 25e-2);
 const SER = new Array(EB_N0_DB.length);
 let SER_THEORETICAL = SER;
 
-const mpsk = (M) => {
+const MPSK = (M) => {
     SER_THEORETICAL = h.getTheoreticalSerMpsk(EB_N0_DB, M);
     const L = Math.log2(M);
     const NO_OF_BITS = L * NO_OF_SYMBOLS;
@@ -65,7 +65,7 @@ document.getElementById('simulate').addEventListener('click', async () => {
     mInput.value = m;
     spinner.classList.remove('d-none');
     setTimeout(() => {
-        mpsk(m);
+        MPSK(m);
         h.plot(['Theoretical', 'Simulation'], [EB_N0_DB, SER_THEORETICAL], [EB_N0_DB, SER]);
         simulationData.disabled = false;
         theoreticalData.disabled = false;

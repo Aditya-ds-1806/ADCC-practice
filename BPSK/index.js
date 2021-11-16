@@ -8,7 +8,7 @@ const EB_N0_DB = h.linspace(0, 10, 25e-2);
 const BER_THEORETICAL = h.getTheoreticalBerBpsk(EB_N0_DB);
 const BER = new Array(EB_N0_DB.length);
 
-const bpskModulator = () => {
+const BPSK = () => {
     const Bk = h.randi([0, 1], NO_OF_BITS); // message
     const Xk = Bk.map((bit) => (bit === 0 ? 1 : -1)); // modulation
     for (let i = 0; i < EB_N0_DB.length; i += 1) {
@@ -37,7 +37,7 @@ simulationData.addEventListener('click', () => h.saveData(EB_N0_DB, BER, 'simula
 document.getElementById('simulate').addEventListener('click', async () => {
     spinner.classList.remove('d-none');
     setTimeout(() => {
-        bpskModulator();
+        BPSK();
         h.plot(['Theoretical', 'Simulation'], [EB_N0_DB, BER_THEORETICAL], [EB_N0_DB, BER]);
         simulationData.disabled = false;
         theoreticalData.disabled = false;
