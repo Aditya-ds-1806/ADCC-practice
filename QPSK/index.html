@@ -31,7 +31,7 @@
             <code class="fs-6">
                 <pre>
 Input: NO_OF_BITS, EB_N0_DB, Bk
-Output: BER
+Output: SER
 
 map([bit1, bit2]) = {
     00: [1/sqrt(2), 1/sqrt(2)],
@@ -54,9 +54,9 @@ for EB_N0 in EB_N0_DB
     Yk = Sk + Nk
     sHat = ML(Yk)
     unchangedSymbols = count(sHat === Sk)
-    BER = 1 - (unchangedSymbols/NO_OF_BITS)
+    SER = 1 - (unchangedSymbols/NO_OF_BITS)
 
-plot(BER, BER_THEORETICAL)
+plot(SER, SER_THEORETICAL)
                 </pre>
             </code>
             <div class="text-center">

@@ -31,7 +31,7 @@
             <code class="fs-6">
                 <pre>
 Input: M, NO_OF_BITS, EB_N0_DB, Bk
-Output: BER
+Output: SER
 
 L = log2(M)
 phases = 2*i*PI/M, i = 0, 1, ..., M-1
@@ -47,9 +47,9 @@ for EB_N0 in EB_N0_DB
     Yk = Sk + Nk
     sHat = dec2bin(ML(Yk))
     unchangedSymbols = count(sHat === Sk)
-    BER = 1 - (unchangedSymbols/NO_OF_BITS)
+    SER = 1 - (unchangedSymbols/NO_OF_BITS)
 
-plot(BER, BER_THEORETICAL)
+plot(SER, SER_THEORETICAL)
                 </pre>
             </code>
             <div class="text-center">
