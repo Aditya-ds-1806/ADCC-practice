@@ -3,15 +3,15 @@ import Helpers from '../helpers.js';
 
 const h = new Helpers();
 
-const M = 8;
-const L = Math.log2(M);
-const NO_OF_BITS = L * (10 ** 5);
-const NO_OF_SYMBOLS = NO_OF_BITS / L;
+const NO_OF_SYMBOLS = 10 ** 5;
 const EB_N0_DB = h.linspace(0, 10, 25e-2);
 const SER_THEORETICAL = h.getTheoreticalSerQpsk(EB_N0_DB);
 const SER = new Array(EB_N0_DB.length);
 
 const mpsk = (M) => {
+    const L = Math.log2(M);
+    const NO_OF_BITS = L * NO_OF_SYMBOLS;
+
     const phases = new Array(M).fill(0).map((_, i) => (2 * i * Math.PI) / M);
     const constellation = phases.map((phase) => [Math.cos(phase), Math.sin(phase)]);
     const Bk = h.randi([0, 1], NO_OF_BITS); // message
