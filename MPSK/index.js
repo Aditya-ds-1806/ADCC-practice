@@ -5,10 +5,11 @@ const h = new Helpers();
 
 const NO_OF_SYMBOLS = 10 ** 5;
 const EB_N0_DB = h.linspace(0, 10, 25e-2);
-const SER_THEORETICAL = h.getTheoreticalSerQpsk(EB_N0_DB);
 const SER = new Array(EB_N0_DB.length);
+let SER_THEORETICAL = SER;
 
 const mpsk = (M) => {
+    SER_THEORETICAL = h.getTheoreticalSerMpsk(EB_N0_DB, M);
     const L = Math.log2(M);
     const NO_OF_BITS = L * NO_OF_SYMBOLS;
 
