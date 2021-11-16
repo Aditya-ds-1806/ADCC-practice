@@ -33,7 +33,7 @@
 Input: NO_OF_BITS, EB_N0_DB, Bk
 Output: BER
 
-Xk = Bk(0 --> [0, 1], 1 --> [1, 0])
+Xk = Bk(0 --> [1, 0], 1 --> [0, 1])
 ML([bit1, bit2]) = (0 if bit2 - bit1 < 0; 1 if bit2 - bit1 > 0)
 
 for EB_N0 in EB_N0_DB
@@ -46,6 +46,12 @@ for EB_N0 in EB_N0_DB
 plot(BER, BER_THEORETICAL)
                 </pre>
             </code>
+            <div class="text-center">
+                <figure class="figure">
+                    <img src="./constellation.png" class="figure-img img-fluid rounded" alt="constellation for BPSK">
+                    <figcaption class="figure-caption text-center">Fig.1 Constellation Map</figcaption>
+                </figure>
+            </div>
         </section>
         <section id="code" class="mb-5">
             <h2>4 JavaScript Code</h2>
