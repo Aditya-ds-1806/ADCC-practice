@@ -25,6 +25,55 @@
         </section>
         <section class="mb-5">
             <h2>2 Theory</h2>
+            <div class="text-center">
+                <figure class="figure">
+                    <img src="./constellation.png" class="figure-img img-fluid rounded" alt="constellation for BPSK">
+                    <figcaption class="figure-caption text-center">Fig.1 Constellation Map</figcaption>
+                </figure>
+            </div>
+            <h3>2.1 ML Rule</h3>
+            Since every symbol is equally likely, the ML rule is based on the shortest euclidean distance:
+            $$ arg\:min\:||y-s_{i}||^2,\:i=0,1,2\dots,7 $$
+            <h3>2.2 SER</h3>
+            Let \(d\) be the distance between the points and \(E\) be the error bit. Let \(s_{i}\)
+            be the \(i^{th}\) symbol and since all symbols are equally likely:
+            $$ P(E=1) = \sum_{i=1}^7 P(s_{i})P(E \mid s_{i}) = \frac{1}{8}\sum_{i=1}^7 P(E \mid s_{i})\tag{1} $$
+            Owing to the symmetry of the constellation, we can write:
+            $$ P(E \mid s_{0}) = P(E \mid s_{1}) = P(E \mid s_{6}) = P(E \mid s_{7}) $$
+            $$ P(E \mid s_{2}) = P(E \mid s_{3}) = P(E \mid s_{4}) = P(E \mid s_{5})\tag{2} $$
+            Thus, \((1)\) reduces to:
+            $$ P(E=1) = \frac{P(E \mid s_{1}) + P(E \mid s_{3})}{2}\tag{3} $$
+            Let \(S_{k} = [S_{1k}, S_{2k}]\) represent the symbol transmitted and \(N_{k} = [N_{1k}, N_{2k}]\) be 
+            the noise introudced by the AWGN channel such that \(Y_{k} = [Y_{1k}, Y_{2k}] = N_{k} + S_{k}\). Then,
+            $$ P(E \mid s_{1}) = P(\{Y_{1k} > -d\} \cap \{P(Y_{2k} > 0)\}) $$
+            $$ = 1 - P(\{Y_{1k} < -d\} \cap \{P(Y_{2k} < 0)\})$$
+            $$ = 1 - P(Y_{1k} < -d)P(Y_{2k} < 0) $$
+            $$ = 1 - P(S_{1k} + N_{1k} < -d)P(S_{2k} + N_{2k} < 0) $$
+            $$ = 1 - P(N_{1k} - 3d/2 < -d)P(N_{2k} - d/2 < 0) $$
+            $$ = 1 - P(N_{1k} < d/2)P(N_{2k} < d/2) $$
+            $$ = 1 - (1 - P(N_{1k} > d/2))^2 $$
+            $$ = 1 - \Bigg(1 - P\Bigg(\frac{N_{1k}}{\sigma} > \frac{d}{2\sigma}\Bigg)\Bigg)^2 $$
+            $$ = 1 - \Bigg(1 - Q\Bigg(\frac{d}{2\sigma}\Bigg)\Bigg)^2 $$
+            $$ = 2Q\Big(\frac{d}{2\sigma}\Big) - Q^2\Big(\frac{d}{2\sigma}\Big)\tag{4} $$
+            Similarly,
+            $$ P(E \mid s_{3}) = P(\{Y_{1k} < -d, Y_{1k} > 0\} \cap \{P(Y_{2k} > 0)\}) $$
+            $$ = 1 - P(\{-d < Y_{1k} < 0\} \cap \{P(Y_{2k} < 0)\})$$
+            $$ = 1 - P(-d < Y_{1k} < 0)P(Y_{2k} < 0) $$
+            $$ = 1 - P(-d < S_{1k} + N_{1k} < 0)P(S_{2k} + N_{2k} < 0) $$
+            $$ = 1 - P(-d < N_{1k} - d/2 < 0)P(N_{2k} - d/2 < 0) $$
+            $$ = 1 - P(-d/2 < N_{1k} < d/2)P(N_{2k} < d/2) $$
+            $$ = 1 - P\Big(-\frac{d}{2\sigma} < N_{1k} < \frac{d}{2\sigma}\Big)P\Big(\frac{N_{2k}}{\sigma} < \frac{d}{2\sigma}\Big) $$
+            $$ = 1 - P\Big(-\frac{d}{2\sigma} < N_{1k} < \frac{d}{2\sigma}\Big)P\Big(\frac{N_{2k}}{\sigma} < \frac{d}{2\sigma}\Big) $$
+            $$ = 1 - \Bigg(1 - P\Big(\frac{d}{2\sigma} > N_{1k} > -\frac{d}{2\sigma}\Big)\Bigg)\Bigg(1 - P\Big(\frac{N_{2k}}{\sigma} > \frac{d}{2\sigma}\Big)\Bigg) $$
+            $$ = 1 - \Bigg(1 - 2Q\Big(\frac{d}{2\sigma}\Big)\Bigg)\Bigg(1 - Q\Big(\frac{d}{2\sigma}\Big)\Bigg) $$
+            $$ = 3Q\Big(\frac{d}{2\sigma}\Big) - 2Q^2\Big(\frac{d}{2\sigma}\Big)\tag{5} $$
+            Substituting \((4)\) and \((5)\) in \((3)\):
+            $$ \boxed{P(E=1) = 2.5Q\Big(\frac{d}{2\sigma}\Big) - 1.5Q^2\Big(\frac{d}{2\sigma}\Big)}\tag{6} $$ 
+            The average symbol energy can be found from the constellation map as:
+            $$ E_{s} = \sum_{k}P(s_{k})|s_{k}|^2 = \frac{4(\frac{d^2}{4} + \frac{d^2}{4}) + 4(\frac{9d^2}{4} + \frac{d^2}{4})}{8} $$
+            $$ E_{s} = \frac{3d^2}{2}\tag{7} $$
+            Substituting (7) in (6):
+            $$ \boxed{P_{e} = P(E=1) = 2.5Q\Bigg(\sqrt{\frac{E_{s}}{3N_{0}}}\Bigg) - 1.5Q^2\Bigg(\sqrt{\frac{E_{s}}{3N_{0}}}\Bigg)}\tag{8} $$
         </section>
         <section class="mb-5">
             <h2>3 Design</h2>
@@ -50,12 +99,6 @@ for EB_N0 in EB_N0_DB
 plot(SER, SER_THEORETICAL)
                 </pre>
             </code>
-            <div class="text-center">
-                <figure class="figure">
-                    <img src="./constellation.png" class="figure-img img-fluid rounded" alt="constellation for BPSK">
-                    <figcaption class="figure-caption text-center">Fig.1 Constellation Map</figcaption>
-                </figure>
-            </div>
         </section>
         <section id="code" class="mb-5">
             <h2>4 JavaScript Code</h2>
@@ -85,6 +128,7 @@ plot(SER, SER_THEORETICAL)
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.plot.ly/plotly-2.4.2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script type="module" src="../helpers.js"></script>
     <script type="module" src="index.js"></script>
 </body>
