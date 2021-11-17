@@ -25,6 +25,80 @@
         </section>
         <section class="mb-5">
             <h2>2 Theory</h2>
+            <figure class="figure">
+                <img src="./constellation.png" class="figure-img img-fluid rounded" alt="constellation for BPSK">
+                <figcaption class="figure-caption text-center">Fig.1 Constellation Map</figcaption>
+            </figure>
+            <h3>2.1 ML Rule</h3>
+            Let \(Y\) be the output at the receiver and \(X\) be the message at the transmitter. Let \(N\) be the noise introduced by the AWGN channel. Let \(E\) be the bit energy. Then, for the
+            \(k^{th}\) bit:
+            $$ Y_{k} = X_{k} + N_{k} $$
+            Consider:
+            $$ P(Y_{k} = y \mid S_{k} = \sqrt{E}) $$
+            $$ = \lim_{\epsilon \to 0} P(Y_{k} \in (y-\epsilon, y+\epsilon) \mid S_{k}=\sqrt{E}) $$
+            $$ = \lim_{\epsilon \to 0} P(S_{k} + N_{k} \in (y-\epsilon, y+\epsilon) \mid S_{k}=\sqrt{E}) $$
+            $$ = \lim_{\epsilon \to 0} P(N_{k} \in (y-\epsilon-\sqrt{E}, y+\epsilon-\sqrt{E}) \mid S_{k}=\sqrt{E}) $$
+            $$ = \lim_{\epsilon \to 0} 2\epsilon f_{Y_{k}}(y-\sqrt{E}) $$
+            $$ \boxed{P(Y_{k} = y \mid S_{k} = \sqrt{E}) = \lim_{\epsilon \to 0} 2\epsilon f_{Y_{k}}(y-\sqrt{E})}\tag{1}
+            $$
+            Similarly:
+            $$ \boxed{P(Y_{k} = y \mid S_{k} = -\sqrt{E}) = \lim_{\epsilon \to 0} 2\epsilon
+            f_{Y_{k}}(y+\sqrt{E})}\tag{2} $$
+            Consider the ratio of \((1)\) and \((2)\):
+            $$ \frac{P(Y_{k} = y \mid S_{k} = \sqrt{E})}{P(Y_{k} = y \mid S_{k} = -\sqrt{E})} = \lim_{\epsilon \to
+            0}\frac{2\epsilon f_{Y_{k}}(y-\sqrt{E})}{2\epsilon f_{Y_{k}}(y+\sqrt{E})} $$
+            $$ = \frac{f_{Y_{k}}(y-\sqrt{E})}{f_{Y_{k}}(y+\sqrt{E})} $$
+            $$ =
+            \frac{\frac{1}{\sigma\sqrt{2}\pi}e^{-\frac{(y-\sqrt{E})^2}{2\sigma^2}}}{\frac{1}{\sigma\sqrt{2}\pi}e^{-\frac{(y+\sqrt{E})^2}{2\sigma^2}}}
+            $$
+            $$ = e^{\frac{(y+\sqrt{E})^2 - (y-\sqrt{E})^2}{2\sigma^2}} $$
+            $$ = e^{\frac{4y\sqrt{E}}{2\sigma^2}} $$
+            $$ = e^{\frac{2y\sqrt{E}}{\sigma^2}} $$
+            $$ \boxed{\frac{P(Y_{k} = y \mid S_{k} = \sqrt{E})}{P(Y_{k} = y \mid S_{k} = -\sqrt{E})} =
+            e^{\frac{2y\sqrt{E}}{\sigma^2}}}\tag{3} $$
+            Let \(B_{k} \in X \) be the transmitted bit and \(\hat{B} \in Y\) be the the output at the receiver
+            corresponding to \(B_{k}\). Then the ML can be written as:
+            $$ \hat{B} =
+            \begin{cases}
+            1, & \frac{P(Y_{k}=y \mid B_{k}=1)}{P(Y_{k}=y \mid B_{k}=0)} > 1\\
+            0, & \frac{P(Y_{k}=y \mid B_{k}=1)}{P(Y_{k}=y \mid B_{k}=0)} < 1 \end{cases} $$
+            $$ \hat{B} =
+            \begin{cases}
+            1, & \ln\Big({\frac{P(Y_{k}=y \mid B_{k}=1)}{P(Y_{k}=y \mid B_{k}=0)}}\Big) > 0\\
+            0, & \ln\Big({\frac{P(Y_{k}=y \mid B_{k}=1)}{P(Y_{k}=y \mid B_{k}=0)}}\Big) < 0 \end{cases} $$
+            Fromt he constellation diagram, we can write:
+            $$ \hat{B} =
+            \begin{cases}
+            1, & \ln\Big({\frac{P(Y_{k}=y \mid S_{k}=-\sqrt{E})}{P(Y_{k}=y \mid S_{k}=\sqrt{E})}}\Big) > 0\\
+            0, & \ln\Big({\frac{P(Y_{k}=y \mid S_{k}=-\sqrt{E})}{P(Y_{k}=y \mid S_{k}=\sqrt{E})}}\Big) < 0 \end{cases}\tag{4} $$
+            Substituting \((3)\) in \((4)\):
+            $$ \hat{B} =
+            \begin{cases}
+            1, & \frac{2y\sqrt{E}}{\sigma^2} < 0\\
+            0, & \frac{2y\sqrt{E}}{\sigma^2} > 0 
+            \end{cases} $$
+            $$ \hat{B} =
+            \begin{cases}
+            1, & y < 0\\
+            0, & y > 0 
+            \end{cases} $$
+            <h3>2.2 BER</h3>
+            Let \(E\) be the error bit. Then,
+            $$ P(E=1) = P(E=1, B=1) + P(E=1, B=0) $$
+            $$ P(E=1) = P(E=1 \mid B=1)P(B=1) + P(E=1 \mid B=0)P(B=0)\tag{5} $$
+            $$ P(E=1 \mid B=1) = P(\hat{B}=0 \mid B=1) $$
+            $$ = P(Y>0 \mid B=1) $$
+            $$ = P(N - \sqrt{E} > 0 \mid B=1) $$
+            $$ = P(N > \sqrt{E} \mid B=1) $$
+            $$ = P(N > \sqrt{E}) $$
+            $$ = P\Big(\frac{N}{\sigma} > \sqrt{\frac{E}{\sigma^2}}\Big) $$
+            $$ = \int_{\sqrt{\frac{E}{\sigma^2}}}^{\infty}\frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}dx $$
+            $$ = Q\Bigg(\sqrt{\frac{E}{\sigma^2}}\Bigg) $$
+            $$ = Q\Bigg(\sqrt{\frac{2E}{N_{0}}}\Bigg)\tag{6} $$
+            Similarly, 
+            $$ P(E=1 \mid B=0) = Q\Bigg(\sqrt{\frac{2E}{N_{0}}}\Bigg)\tag{7} $$
+            Substituting, \((6)\) and \((7)\) in \((5)\),
+            $$ \boxed{\therefore P_{e} = P(E=1) = Q\Bigg(\sqrt{\frac{2E}{N_{0}}}\Bigg)} $$
         </section>
         <section class="mb-5">
             <h2>3 Design</h2>
@@ -46,10 +120,6 @@ for EB_N0 in EB_N0_DB
 plot(BER, BER_THEORETICAL)
                 </pre>
             </code>
-            <figure class="figure">
-                <img src="./constellation.png" class="figure-img img-fluid rounded" alt="constellation for BPSK">
-                <figcaption class="figure-caption text-center">Fig.1 Constellation Map</figcaption>
-            </figure>
         </section>
         <section id="code" class="mb-5">
             <h2>4 JavaScript Code</h2>
@@ -79,6 +149,7 @@ plot(BER, BER_THEORETICAL)
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.plot.ly/plotly-2.4.2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script type="module" src="../helpers.js"></script>
     <script type="module" src="index.js"></script>
 </body>
