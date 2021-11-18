@@ -5,9 +5,9 @@ const h = new Helpers();
 
 const NO_OF_BITS = 3 * 10 ** 5;
 const NO_OF_SYMBOLS = NO_OF_BITS / 3;
-const EB_N0_DB = h.linspace(0, 10, 25e-2);
-const SER = new Array(EB_N0_DB.length);
-let SER_THEORETICAL = new Array(EB_N0_DB.length);
+const SB_N0_DB = h.linspace(0, 10, 25e-2);
+const SER = new Array(SB_N0_DB.length);
+let SER_THEORETICAL = new Array(SB_N0_DB.length);
 const M = 8;
 
 const QAM = (D) => {
@@ -28,9 +28,9 @@ const QAM = (D) => {
         }
         return acc;
     }, []).map((tribit) => constellation[parseInt(tribit.join(''), 2)]);
-    SER_THEORETICAL = h.getTheoreticalSerQam8(EB_N0_DB, Es);
-    for (let i = 0; i < EB_N0_DB.length; i += 1) {
-        const Nk = h.getAWGN(EB_N0_DB[i], [NO_OF_SYMBOLS, 2]); // AWGN noise
+    SER_THEORETICAL = h.getTheoreticalSerQam8(SB_N0_DB, Es);
+    for (let i = 0; i < SB_N0_DB.length; i += 1) {
+        const Nk = h.getAWGN(SB_N0_DB[i], [NO_OF_SYMBOLS, 2]); // AWGN noise
         const Yk = new Array(NO_OF_SYMBOLS).fill(0).map((_, j) => h.sum(Sk[j], Nk[j]));
         const sHat = Yk.map(([x1, y1]) => {
             let shortestDistance = Infinity;
@@ -55,14 +55,14 @@ const QAM = (D) => {
     return SER;
 };
 
-h.plot(['Theoretical', 'Simulation'], [EB_N0_DB, SER_THEORETICAL], [EB_N0_DB, SER]);
+h.plot(['Theoretical', 'Simulation'], [SB_N0_DB, SER_THEORETICAL], [SB_N0_DB, SER]);
 
 const simulationData = document.getElementById('simulation');
 const theoreticalData = document.getElementById('theory');
 const spinner = document.querySelector('span.spinner-border');
 
-theoreticalData.addEventListener('click', () => h.saveData(EB_N0_DB, SER_THEORETICAL, 'theory'));
-simulationData.addEventListener('click', () => h.saveData(EB_N0_DB, SER, 'simulation'));
+theoreticalData.addEventListener('click', () => h.saveData(SB_N0_DB, SER_THEORETICAL, 'theory'));
+simulationData.addEventListener('click', () => h.saveData(SB_N0_DB, SER, 'simulation'));
 
 document.getElementById('simulate').addEventListener('click', async () => {
     const dInput = document.getElementById('D');
@@ -71,7 +71,7 @@ document.getElementById('simulate').addEventListener('click', async () => {
     spinner.classList.remove('d-none');
     setTimeout(() => {
         QAM(D);
-        h.plot(['Theoretical', 'Simulation'], [EB_N0_DB, SER_THEORETICAL], [EB_N0_DB, SER]);
+        h.plot(['Theoretical', 'Simulation'], [SB_N0_DB, SER_THEORETICAL], [SB_N0_DB, SER]);
         simulationData.disabled = false;
         theoreticalData.disabled = false;
         spinner.classList.add('d-none');

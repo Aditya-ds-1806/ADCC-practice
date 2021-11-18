@@ -19,20 +19,20 @@ export default class Helpers {
         this.getTheoreticalBerBpsk = (EB_N0_DB) => EB_N0_DB
             .map((EB_N0) => this.qfunc(Math.sqrt(2 * (10 ** (EB_N0 / 10)))));
 
-        this.getTheoreticalSerQpsk = (EB_N0_DB) => EB_N0_DB
-            .map((EB_N0) => 2 * this.qfunc(Math.sqrt(10 ** (EB_N0 / 10)))
-                - this.qfunc(Math.sqrt(10 ** (EB_N0 / 10))) ** 2);
+        this.getTheoreticalSerQpsk = (SB_N0_DB) => SB_N0_DB
+            .map((SB_N0) => 2 * this.qfunc(Math.sqrt(10 ** (SB_N0 / 10)))
+                - this.qfunc(Math.sqrt(10 ** (SB_N0 / 10))) ** 2);
 
         this.getTheoreticalBerBfsk = (EB_N0_DB) => EB_N0_DB
             .map((EB_N0) => this.qfunc(Math.sqrt(10 ** (EB_N0 / 10))));
 
-        this.getTheoreticalSerQam8 = (EB_N0_DB, Es) => EB_N0_DB
-            .map((EB_N0) => 2.5 * this.qfunc(Math.sqrt(((10 ** (EB_N0 / 10)) * Es) / 3))
-                - 1.5 * (this.qfunc(Math.sqrt(((10 ** (EB_N0 / 10)) * Es) / 3))) ** 2);
+        this.getTheoreticalSerQam8 = (SB_N0_DB, Es) => SB_N0_DB
+            .map((SB_N0) => 2.5 * this.qfunc(Math.sqrt(((10 ** (SB_N0 / 10)) * Es) / 3))
+                - 1.5 * (this.qfunc(Math.sqrt(((10 ** (SB_N0 / 10)) * Es) / 3))) ** 2);
 
-        this.getTheoreticalSerMpsk = (EB_N0_DB, M) => EB_N0_DB
-            .map((EB_N0) => 2 * this
-                .qfunc(Math.sqrt(2 * 10 ** (EB_N0 / 10)) * Math.sin(Math.PI / M)));
+        this.getTheoreticalSerMpsk = (SB_N0_DB, M) => SB_N0_DB
+            .map((SB_N0) => 2 * this
+                .qfunc(Math.sqrt(2 * 10 ** (SB_N0 / 10)) * Math.sin(Math.PI / M)));
 
         this.randi = ([min, max], count) => {
             const integers = [];
@@ -87,9 +87,9 @@ export default class Helpers {
             Plotly.newPlot('plot', traces, layout, config);
         };
 
-        this.getAWGN = (EB_N0_DB, [rows, cols]) => {
+        this.getAWGN = (SB_N0_DB, [rows, cols]) => {
             const awgn = this.randn(rows * cols)
-                .map((N) => N / Math.sqrt(2 * (10 ** (EB_N0_DB / 10))));
+                .map((N) => N / Math.sqrt(2 * (10 ** (SB_N0_DB / 10))));
             if (cols === 1) return awgn;
             return awgn.reduce((acc, N, j) => {
                 if (j % cols === 0) {
@@ -116,9 +116,9 @@ export default class Helpers {
             return binaryString.slice(-length);
         };
 
-        this.saveData = (EB_N0_DB, SER, fileName) => {
-            const data = new Array(EB_N0_DB.length).fill(0)
-                .map((_, i) => [EB_N0_DB[i], SER[i]])
+        this.saveData = (SB_N0_DB, SER, fileName) => {
+            const data = new Array(SB_N0_DB.length).fill(0)
+                .map((_, i) => [SB_N0_DB[i], SER[i]])
                 // eslint-disable-next-line no-return-assign, no-param-reassign
                 .reduce((acc, entry) => acc += `${entry.join(' ')}\n`, '');
             const blob = new Blob([data], {
