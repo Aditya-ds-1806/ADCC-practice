@@ -6,11 +6,18 @@ const h = new Helpers();
 const NO_OF_BITS = 3 * 10 ** 5;
 const NO_OF_SYMBOLS = NO_OF_BITS / 3;
 const EB_N0_DB = h.linspace(0, 10, 25e-2);
-const SER_THEORETICAL = h.getTheoreticalSerQam8(EB_N0_DB);
 const SER = new Array(EB_N0_DB.length);
-const constellation = h.linspace(-1.5, 1.5, 1).map((point) => [[point, 0.5], [point, -0.5]]).flat();
+let SER_THEORETICAL = new Array(EB_N0_DB.length);
+const M = 8;
 
-const QAM = () => {
+const QAM = (D) => {
+    const RIGHT = D / 2 + (M / 4 - 1) * D;
+    const LEFT = -RIGHT;
+    const Es = 1.5 * (D ** 2);
+    const constellation = h
+        .linspace(LEFT, RIGHT, D)
+        .map((point) => [[point, D / 2], [point, -D / 2]])
+        .flat();
     const Bk = h.randi([0, 1], NO_OF_BITS); // message
     const Sk = Bk.reduce((acc, bit, i) => { // modulation
         if (i % 3 === 0) {
@@ -21,6 +28,7 @@ const QAM = () => {
         }
         return acc;
     }, []).map((tribit) => constellation[parseInt(tribit.join(''), 2)]);
+    SER_THEORETICAL = h.getTheoreticalSerQam8(EB_N0_DB, Es);
     for (let i = 0; i < EB_N0_DB.length; i += 1) {
         const Nk = h.getAWGN(EB_N0_DB[i], [NO_OF_SYMBOLS, 2]); // AWGN noise
         const Yk = new Array(NO_OF_SYMBOLS).fill(0).map((_, j) => h.sum(Sk[j], Nk[j]));
@@ -57,9 +65,12 @@ theoreticalData.addEventListener('click', () => h.saveData(EB_N0_DB, SER_THEORET
 simulationData.addEventListener('click', () => h.saveData(EB_N0_DB, SER, 'simulation'));
 
 document.getElementById('simulate').addEventListener('click', async () => {
+    const dInput = document.getElementById('D');
+    const D = (Number(dInput.value) || 1);
+    dInput.value = D;
     spinner.classList.remove('d-none');
     setTimeout(() => {
-        QAM();
+        QAM(D);
         h.plot(['Theoretical', 'Simulation'], [EB_N0_DB, SER_THEORETICAL], [EB_N0_DB, SER]);
         simulationData.disabled = false;
         theoreticalData.disabled = false;
