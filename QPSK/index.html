@@ -48,14 +48,14 @@
             $$ = P(Y_{1k} < 0, Y_{2k} < 0) $$
             $$ = 1 - P(Y_{1k} > 0, Y_{2k} > 0) $$
             $$ = 1 - P(S_{1k} + N_{1k} > 0, S_{2k} + N_{2k} > 0) $$
-            $$ = 1 - P\Bigg(\frac{\sqrt{E}}{2} + N_{1k} > 0,\frac{\sqrt{E}}{2} + N_{2k} > 0\Bigg) $$
-            $$ = 1 - P\Bigg(N_{1k} > -\sqrt{\frac{E}{2}}, N_{2k} > -\sqrt{\frac{E}{2}}\Bigg) $$
-            $$ = 1 - P\Bigg(N_{1k} > -\sqrt{\frac{E}{2}}\Bigg)P\Bigg(N_{2k} > -\sqrt{\frac{E}{2}}\Bigg) $$
-            $$ = 1 - P\Bigg(\frac{N_{1k}}{\sigma} > -\sqrt{\frac{E}{2\sigma^2}}\Bigg)P\Bigg(\frac{N_{2k}}{\sigma} > -\sqrt{\frac{E}{2\sigma^2}}\Bigg) $$
-            $$ = 1 - Q^2\Bigg(-\sqrt{\frac{E}{2\sigma^2}}\Bigg) $$
-            $$ = 1 - \Bigg(1 - Q\Bigg(\sqrt{\frac{E}{2\sigma^2}}\Bigg)\Bigg)^2 $$
-            $$ = 2Q\Bigg(\sqrt{\frac{E}{N_{0}}}\Bigg) - Q^2\Bigg(\sqrt{\frac{E}{N_{0}}}\Bigg) $$
-            $$ \therefore \boxed{P_{e} = P(E=1) = 2Q\Bigg(\sqrt{\frac{E}{N_{0}}}\Bigg) - Q^2\Bigg(\sqrt{\frac{E}{N_{0}}}\Bigg)}\tag{4} $$
+            $$ = 1 - P\Bigg(\frac{\sqrt{E_{s}}}{2} + N_{1k} > 0,\frac{\sqrt{E_{s}}}{2} + N_{2k} > 0\Bigg) $$
+            $$ = 1 - P\Bigg(N_{1k} > -\sqrt{\frac{E_{s}}{2}}, N_{2k} > -\sqrt{\frac{E_{s}}{2}}\Bigg) $$
+            $$ = 1 - P\Bigg(N_{1k} > -\sqrt{\frac{E_{s}}{2}}\Bigg)P\Bigg(N_{2k} > -\sqrt{\frac{E_{s}}{2}}\Bigg) $$
+            $$ = 1 - P\Bigg(\frac{N_{1k}}{\sigma} > -\sqrt{\frac{E_{s}}{2\sigma^2}}\Bigg)P\Bigg(\frac{N_{2k}}{\sigma} > -\sqrt{\frac{E_{s}}{2\sigma^2}}\Bigg) $$
+            $$ = 1 - Q^2\Bigg(-\sqrt{\frac{E_{s}}{2\sigma^2}}\Bigg) $$
+            $$ = 1 - \Bigg(1 - Q\Bigg(\sqrt{\frac{E_{s}}{2\sigma^2}}\Bigg)\Bigg)^2 $$
+            $$ = 2Q\Bigg(\sqrt{\frac{E_{s}}{N_{0}}}\Bigg) - Q^2\Bigg(\sqrt{\frac{E_{s}}{N_{0}}}\Bigg) $$
+            $$ \therefore \boxed{P_{e} = P(E=1) = 2Q\Bigg(\sqrt{\frac{E_{s}}{N_{0}}}\Bigg) - Q^2\Bigg(\sqrt{\frac{E_{s}}{N_{0}}}\Bigg)}\tag{4} $$
         </section>
         <section class="mb-5">
             <h2>3 Design</h2>

@@ -30,32 +30,32 @@
                 <figcaption class="figure-caption text-center">Fig.1 Constellation Map</figcaption>
             </figure>
             <h3>2.1 ML Rule</h3>
-            Let \(Y\) be the output at the receiver and \(X\) be the message at the transmitter. Let \(N\) be the noise introduced by the AWGN channel. Let \(E\) be the bit energy. Then, for the
+            Let \(Y\) be the output at the receiver and \(X\) be the message at the transmitter. Let \(N\) be the noise introduced by the AWGN channel. Let \(E_{b}\) be the bit energy. Then, for the
             \(k^{th}\) bit:
             $$ Y_{k} = X_{k} + N_{k} $$
             Consider:
-            $$ P(Y_{k} = y \mid S_{k} = \sqrt{E}) $$
-            $$ = \lim_{\epsilon \to 0} P(Y_{k} \in (y-\epsilon, y+\epsilon) \mid S_{k}=\sqrt{E}) $$
-            $$ = \lim_{\epsilon \to 0} P(S_{k} + N_{k} \in (y-\epsilon, y+\epsilon) \mid S_{k}=\sqrt{E}) $$
-            $$ = \lim_{\epsilon \to 0} P(N_{k} \in (y-\epsilon-\sqrt{E}, y+\epsilon-\sqrt{E}) \mid S_{k}=\sqrt{E}) $$
-            $$ = \lim_{\epsilon \to 0} 2\epsilon f_{Y_{k}}(y-\sqrt{E}) $$
-            $$ \boxed{P(Y_{k} = y \mid S_{k} = \sqrt{E}) = \lim_{\epsilon \to 0} 2\epsilon f_{Y_{k}}(y-\sqrt{E})}\tag{1}
+            $$ P(Y_{k} = y \mid X_{k} = \sqrt{E_{b}}) $$
+            $$ = \lim_{\epsilon \to 0} P(Y_{k} \in (y-\epsilon, y+\epsilon) \mid X_{k}=\sqrt{E_{b}}) $$
+            $$ = \lim_{\epsilon \to 0} P(X_{k} + N_{k} \in (y-\epsilon, y+\epsilon) \mid X_{k}=\sqrt{E_{b}}) $$
+            $$ = \lim_{\epsilon \to 0} P(N_{k} \in (y-\epsilon-\sqrt{E_{b}}, y+\epsilon-\sqrt{E_{b}}) \mid X_{k}=\sqrt{E_{b}}) $$
+            $$ = \lim_{\epsilon \to 0} 2\epsilon f_{Y_{k}}(y-\sqrt{E_{b}}) $$
+            $$ \boxed{P(Y_{k} = y \mid X_{k} = \sqrt{E_{b}}) = \lim_{\epsilon \to 0} 2\epsilon f_{Y_{k}}(y-\sqrt{E_{b}})}\tag{1}
             $$
             Similarly:
-            $$ \boxed{P(Y_{k} = y \mid S_{k} = -\sqrt{E}) = \lim_{\epsilon \to 0} 2\epsilon
-            f_{Y_{k}}(y+\sqrt{E})}\tag{2} $$
+            $$ \boxed{P(Y_{k} = y \mid X_{k} = -\sqrt{E_{b}}) = \lim_{\epsilon \to 0} 2\epsilon
+            f_{Y_{k}}(y+\sqrt{E_{b}})}\tag{2} $$
             Consider the ratio of \((1)\) and \((2)\):
-            $$ \frac{P(Y_{k} = y \mid S_{k} = \sqrt{E})}{P(Y_{k} = y \mid S_{k} = -\sqrt{E})} = \lim_{\epsilon \to
-            0}\frac{2\epsilon f_{Y_{k}}(y-\sqrt{E})}{2\epsilon f_{Y_{k}}(y+\sqrt{E})} $$
-            $$ = \frac{f_{Y_{k}}(y-\sqrt{E})}{f_{Y_{k}}(y+\sqrt{E})} $$
+            $$ \frac{P(Y_{k} = y \mid X_{k} = \sqrt{E_{b}})}{P(Y_{k} = y \mid X_{k} = -\sqrt{E_{b}})} = \lim_{\epsilon \to
+            0}\frac{2\epsilon f_{Y_{k}}(y-\sqrt{E_{b}})}{2\epsilon f_{Y_{k}}(y+\sqrt{E_{b}})} $$
+            $$ = \frac{f_{Y_{k}}(y-\sqrt{E_{b}})}{f_{Y_{k}}(y+\sqrt{E_{b}})} $$
             $$ =
-            \frac{\frac{1}{\sigma\sqrt{2}\pi}e^{-\frac{(y-\sqrt{E})^2}{2\sigma^2}}}{\frac{1}{\sigma\sqrt{2}\pi}e^{-\frac{(y+\sqrt{E})^2}{2\sigma^2}}}
+            \frac{\frac{1}{\sigma\sqrt{2}\pi}e^{-\frac{(y-\sqrt{E_{b}})^2}{2\sigma^2}}}{\frac{1}{\sigma\sqrt{2}\pi}e^{-\frac{(y+\sqrt{E_{b}})^2}{2\sigma^2}}}
             $$
-            $$ = e^{\frac{(y+\sqrt{E})^2 - (y-\sqrt{E})^2}{2\sigma^2}} $$
-            $$ = e^{\frac{4y\sqrt{E}}{2\sigma^2}} $$
-            $$ = e^{\frac{2y\sqrt{E}}{\sigma^2}} $$
-            $$ \boxed{\frac{P(Y_{k} = y \mid S_{k} = \sqrt{E})}{P(Y_{k} = y \mid S_{k} = -\sqrt{E})} =
-            e^{\frac{2y\sqrt{E}}{\sigma^2}}}\tag{3} $$
+            $$ = e^{\frac{(y+\sqrt{E_{b}})^2 - (y-\sqrt{E_{b}})^2}{2\sigma^2}} $$
+            $$ = e^{\frac{4y\sqrt{E_{b}}}{2\sigma^2}} $$
+            $$ = e^{\frac{2y\sqrt{E_{b}}}{\sigma^2}} $$
+            $$ \boxed{\frac{P(Y_{k} = y \mid X_{k} = \sqrt{E_{b}})}{P(Y_{k} = y \mid X_{k} = -\sqrt{E_{b}})} =
+            e^{\frac{2y\sqrt{E_{b}}}{\sigma^2}}}\tag{3} $$
             Let \(B_{k} \in X \) be the transmitted bit and \(\hat{B} \in Y\) be the the output at the receiver
             corresponding to \(B_{k}\). Then the ML can be written as:
             $$ \hat{B} =
@@ -69,13 +69,13 @@
             Fromt he constellation diagram, we can write:
             $$ \hat{B} =
             \begin{cases}
-            1, & \ln\Big({\frac{P(Y_{k}=y \mid S_{k}=-\sqrt{E})}{P(Y_{k}=y \mid S_{k}=\sqrt{E})}}\Big) > 0\\
-            0, & \ln\Big({\frac{P(Y_{k}=y \mid S_{k}=-\sqrt{E})}{P(Y_{k}=y \mid S_{k}=\sqrt{E})}}\Big) < 0 \end{cases}\tag{4} $$
+            1, & \ln\Big({\frac{P(Y_{k}=y \mid X_{k}=-\sqrt{E_{b}})}{P(Y_{k}=y \mid X_{k}=\sqrt{E_{b}})}}\Big) > 0\\
+            0, & \ln\Big({\frac{P(Y_{k}=y \mid X_{k}=-\sqrt{E_{b}})}{P(Y_{k}=y \mid X_{k}=\sqrt{E_{b}})}}\Big) < 0 \end{cases}\tag{4} $$
             Substituting \((3)\) in \((4)\):
             $$ \hat{B} =
             \begin{cases}
-            1, & \frac{2y\sqrt{E}}{\sigma^2} < 0\\
-            0, & \frac{2y\sqrt{E}}{\sigma^2} > 0 
+            1, & \frac{2y\sqrt{E_{b}}}{\sigma^2} < 0\\
+            0, & \frac{2y\sqrt{E_{b}}}{\sigma^2} > 0 
             \end{cases} $$
             $$ \hat{B} =
             \begin{cases}
@@ -88,17 +88,17 @@
             $$ P(E=1) = P(E=1 \mid B=1)P(B=1) + P(E=1 \mid B=0)P(B=0)\tag{5} $$
             $$ P(E=1 \mid B=1) = P(\hat{B}=0 \mid B=1) $$
             $$ = P(Y>0 \mid B=1) $$
-            $$ = P(N - \sqrt{E} > 0 \mid B=1) $$
-            $$ = P(N > \sqrt{E} \mid B=1) $$
-            $$ = P(N > \sqrt{E}) $$
-            $$ = P\Big(\frac{N}{\sigma} > \sqrt{\frac{E}{\sigma^2}}\Big) $$
-            $$ = \int_{\sqrt{\frac{E}{\sigma^2}}}^{\infty}\frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}dx $$
-            $$ = Q\Bigg(\sqrt{\frac{E}{\sigma^2}}\Bigg) $$
-            $$ = Q\Bigg(\sqrt{\frac{2E}{N_{0}}}\Bigg)\tag{6} $$
+            $$ = P(N - \sqrt{E_{b}} > 0 \mid B=1) $$
+            $$ = P(N > \sqrt{E_{b}} \mid B=1) $$
+            $$ = P(N > \sqrt{E_{b}}) $$
+            $$ = P\Big(\frac{N}{\sigma} > \sqrt{\frac{E_{b}}{\sigma^2}}\Big) $$
+            $$ = \int_{\sqrt{\frac{E_{b}}{\sigma^2}}}^{\infty}\frac{1}{\sqrt{2\pi}}e^{-\frac{x^2}{2}}dx $$
+            $$ = Q\Bigg(\sqrt{\frac{E_{b}}{\sigma^2}}\Bigg) $$
+            $$ = Q\Bigg(\sqrt{\frac{2E_{b}}{N_{0}}}\Bigg)\tag{6} $$
             Similarly, 
-            $$ P(E=1 \mid B=0) = Q\Bigg(\sqrt{\frac{2E}{N_{0}}}\Bigg)\tag{7} $$
+            $$ P(E=1 \mid B=0) = Q\Bigg(\sqrt{\frac{2E_{b}}{N_{0}}}\Bigg)\tag{7} $$
             Substituting, \((6)\) and \((7)\) in \((5)\),
-            $$ \boxed{\therefore P_{e} = P(E=1) = Q\Bigg(\sqrt{\frac{2E}{N_{0}}}\Bigg)} $$
+            $$ \boxed{\therefore P_{e} = P(E=1) = Q\Bigg(\sqrt{\frac{2E_{b}}{N_{0}}}\Bigg)} $$
         </section>
         <section class="mb-5">
             <h2>3 Design</h2>
