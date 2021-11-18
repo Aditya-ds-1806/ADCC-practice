@@ -27,48 +27,49 @@
             <h2>2 Theory</h2>
             <div class="text-center">
                 <figure class="figure">
-                    <img src="./constellation.png" class="figure-img img-fluid rounded" alt="constellation for BPSK">
+                    <img src="./images/constellation.png" class="figure-img img-fluid rounded"
+                        alt="constellation for BPSK">
                     <figcaption class="figure-caption text-center">Fig.1 Constellation Map</figcaption>
                 </figure>
             </div>
             <h3>2.1 ML Rule</h3>
-            Let \(Y\) be the output at the receiver and \(X\) be the message at the transmitter. Let \(N\) be the noise introduced
-            by the AWGN channel. Let \(E_{b}\) be the bit energy. Let \(B_{k} \in X \) be the transmitted bit and \(\hat{B} \in Y=[Y_{1k}, Y_{2k}]\) be the the output at the receiver
+            Let \(Y\) be the output at the receiver and \(X\) be the message at the transmitter. Let \(N\) be the noise
+            introduced
+            by the AWGN channel. Let \(E_{b}\) be the bit energy. Let \(B_{k} \in X \) be the transmitted bit and
+            \(\hat{B} \in Y=[Y_{1k}, Y_{2k}]\) be the the output at the receiver
             corresponding to \(B_{k}\). Then the ML can be written as:
             $$ \hat{B} =
             \begin{cases}
             1, & \frac{f_{Y}(Y_{k}=y \mid B_{k}=1)}{f_{Y}(Y_{k}=y \mid B_{k}=0)} > 1\\
-            0, & \frac{f_{Y}(Y_{k}=y \mid B_{k}=1)}{f_{Y}(Y_{k}=y \mid B_{k}=0)} < 1 \end{cases} $$
-            $$ \hat{B} =
-            \begin{cases}
-            1, & \ln\Big(\frac{f_{Y}(Y_{k}=y \mid B_{k}=1)}{f_{Y}(Y_{k}=y \mid B_{k}=0)}\Big) > 0\\
-            0, & \ln\Big(\frac{f_{Y}(Y_{k}=y \mid B_{k}=1)}{f_{Y}(Y_{k}=y \mid B_{k}=0)}\Big) < 0 \end{cases} $$
-            $$ \hat{B} =
-            \begin{cases}
-            1, & \ln\Bigg(\frac{\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(Y_{1k}-\sqrt{E_{b}})^2}{2\sigma^2}}\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(Y_{2k}-0)^2}{2\sigma^2}}}{\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(Y_{1k}-0)^2}{2\sigma^2}}\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(Y_{2k}-\sqrt{E_{b}})^2}{2\sigma^2}}}\Bigg) > 0 \\
-            0, & \ln\Bigg(\frac{\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(Y_{1k}-\sqrt{E_{b}})^2}{2\sigma^2}}\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(Y_{2k}-0)^2}{2\sigma^2}}}{\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(Y_{1k}-0)^2}{2\sigma^2}}\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(Y_{2k}-\sqrt{E_{b}})^2}{2\sigma^2}}}\Bigg) > 0\end{cases} $$
-            $$ \hat{B} =
-            \begin{cases}
-            1, & -2\sqrt{E_{b}}(Y_{1k} - Y_{2k}) > 0\\
-            0, & -2\sqrt{E_{b}}(Y_{1k} - Y_{2k}) < 0 \end{cases} $$
-            $$ \boxed{\hat{B} =
-            \begin{cases}
-            1, & Y_{1k} > Y_{2k}\\
-            0, & Y_{1k} < Y_{2k} \end{cases}} $$
-            <h3>2.2 BER</h3>
-            Let \(E\) be the error bit. Then,
-            $$ P(E=1) = P(\hat{B} \neq B) $$
-            $$ = P(\hat{B}=0 \mid B=1)P(B=1) + P(\hat{B}=1 \mid B=0)P(B=0) $$
-            Since both bits are equally likely:
-            $$ P(B=1) = P(B=0), P(\hat{B}=0 \mid B=1) = P(\hat{B}=1 \mid B=0) $$
-            $$ \Longrightarrow P(E=1) = P(\hat{B}=0 \mid B=1) $$
-            $$ = P(Y_{1k} - Y_{2k} > 0 \mid B=0) $$
-            $$ = P(\sqrt{E_{b}} + N_{1k} - N_{2k} > 0 \mid B=0) $$
-            $$ = P(N_{12} > \sqrt{E_{b}}) $$
-            $$ = P\Bigg(\frac{N_{k}}{\sigma} > \sqrt{\frac{E_{b}}{2\sigma^2}}\Bigg) $$
-            $$ = Q\Bigg(\sqrt{\frac{E_{b}}{2\sigma^2}}\Bigg) $$
-            $$ = Q\Bigg(\sqrt{\frac{E_{b}}{N_{0}}}\Bigg) $$
-            $$ \therefore \boxed{P_{e} = P(E=1) = Q\Bigg(\sqrt{\frac{E_{b}}{N_{0}}}\Bigg)} $$
+            0, & \frac{f_{Y}(Y_{k}=y \mid B_{k}=1)}{f_{Y}(Y_{k}=y \mid B_{k}=0)} < 1 \end{cases} $$ $$
+                \hat{B}=\begin{cases} 1, & \ln\Big(\frac{f_{Y}(Y_{k}=y \mid B_{k}=1)}{f_{Y}(Y_{k}=y \mid B_{k}=0)}\Big)>
+                0\\
+                0, & \ln\Big(\frac{f_{Y}(Y_{k}=y \mid B_{k}=1)}{f_{Y}(Y_{k}=y \mid B_{k}=0)}\Big) < 0 \end{cases} $$ $$
+                    \hat{B}=\begin{cases} 1, &
+                    \ln\Bigg(\frac{\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(Y_{1k}-\sqrt{E_{b}})^2}{2\sigma^2}}\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(Y_{2k}-0)^2}{2\sigma^2}}}{\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(Y_{1k}-0)^2}{2\sigma^2}}\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(Y_{2k}-\sqrt{E_{b}})^2}{2\sigma^2}}}\Bigg)>
+                    0 \\
+                    0, &
+                    \ln\Bigg(\frac{\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(Y_{1k}-\sqrt{E_{b}})^2}{2\sigma^2}}\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(Y_{2k}-0)^2}{2\sigma^2}}}{\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(Y_{1k}-0)^2}{2\sigma^2}}\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(Y_{2k}-\sqrt{E_{b}})^2}{2\sigma^2}}}\Bigg)
+                    > 0\end{cases} $$
+                    $$ \hat{B} =
+                    \begin{cases}
+                    1, & -2\sqrt{E_{b}}(Y_{1k} - Y_{2k}) > 0\\
+                    0, & -2\sqrt{E_{b}}(Y_{1k} - Y_{2k}) < 0 \end{cases} $$ $$ \boxed{\hat{B}=\begin{cases} 1, & Y_{1k}>
+                        Y_{2k}\\
+                        0, & Y_{1k} < Y_{2k} \end{cases}} $$ <h3>2.2 BER</h3>
+                            Let \(E\) be the error bit. Then,
+                            $$ P(E=1) = P(\hat{B} \neq B) $$
+                            $$ = P(\hat{B}=0 \mid B=1)P(B=1) + P(\hat{B}=1 \mid B=0)P(B=0) $$
+                            Since both bits are equally likely:
+                            $$ P(B=1) = P(B=0), P(\hat{B}=0 \mid B=1) = P(\hat{B}=1 \mid B=0) $$
+                            $$ \Longrightarrow P(E=1) = P(\hat{B}=0 \mid B=1) $$
+                            $$ = P(Y_{1k} - Y_{2k} > 0 \mid B=0) $$
+                            $$ = P(\sqrt{E_{b}} + N_{1k} - N_{2k} > 0 \mid B=0) $$
+                            $$ = P(N_{12} > \sqrt{E_{b}}) $$
+                            $$ = P\Bigg(\frac{N_{k}}{\sigma} > \sqrt{\frac{E_{b}}{2\sigma^2}}\Bigg) $$
+                            $$ = Q\Bigg(\sqrt{\frac{E_{b}}{2\sigma^2}}\Bigg) $$
+                            $$ = Q\Bigg(\sqrt{\frac{E_{b}}{N_{0}}}\Bigg) $$
+                            $$ \therefore \boxed{P_{e} = P(E=1) = Q\Bigg(\sqrt{\frac{E_{b}}{N_{0}}}\Bigg)} $$
         </section>
         <section class="mb-5">
             <h2>3 Design</h2>

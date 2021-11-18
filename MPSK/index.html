@@ -27,7 +27,8 @@
             <h2>2 Theory</h2>
             <div class="text-center">
                 <figure class="figure">
-                    <img src="./constellation.png" class="figure-img img-fluid rounded" alt="constellation for BPSK">
+                    <img src="./images/constellation.png" class="figure-img img-fluid rounded"
+                        alt="constellation for BPSK">
                     <figcaption class="figure-caption text-center">Fig.1 Constellation Map</figcaption>
                 </figure>
             </div>
@@ -44,7 +45,8 @@
             $$ P(E=1) = P(E=1 \mid s_{0}) = \dots = P(E=1 \mid s_{M-1})\tag{3} $$
             Let us assume \(s_{0} = [\sqrt{E_{s}}, 0]\) was transmitted. Then,
             $$ Y_{k} = [\sqrt{E_{s}} + N_{1k}, N_{2k}] $$
-            It can be seen that \(Y_{1k}, Y_{2k}\) are independent gaussian random variables with means \(\sqrt{E_{s}}, 0\)
+            It can be seen that \(Y_{1k}, Y_{2k}\) are independent gaussian random variables with means \(\sqrt{E_{s}},
+            0\)
             respectively and variance \(\sigma^{2}\). Therefore:
             $$ p(Y) = \frac{1}{\pi N_{0}}e^{-\frac{(Y_{1k} - \sqrt{E_{s}})^2 + Y_{2k}^2}{N_{0}}}\tag{4} $$
             Transforming \((4)\) into polar coordinates using:
@@ -54,20 +56,24 @@
             $$ p_{V, \Theta}(v, \theta) = \frac{v}{\pi N_{0}}e^{\frac{-v^2+E_{s}-2\sqrt{E_{s}}v\cos(\theta)}{N_{0}}} $$
             Integrating over \(v\), we get the marginal PDF of \(\Theta\) as:
             $$ p_{\Theta}(\theta) = \int_{0}^{\infty}p_{V, \Theta}(v, \theta)dv$$
-            $$ \boxed{p_{\Theta}(\theta) = \frac{1}{2\pi}e^{-\frac{E_{s}\sin^2(\theta)}{N_{0}}}\int_{0}^{\infty}ve^{-\frac{\Bigg(v-\sqrt{\frac{2E_{s}}{N_{0}}}\cos(\theta)\Bigg)^2}{2}}dv}\tag{5} $$
+            $$ \boxed{p_{\Theta}(\theta) =
+            \frac{1}{2\pi}e^{-\frac{E_{s}\sin^2(\theta)}{N_{0}}}\int_{0}^{\infty}ve^{-\frac{\Bigg(v-\sqrt{\frac{2E_{s}}{N_{0}}}\cos(\theta)\Bigg)^2}{2}}dv}\tag{5}
+            $$
             For \(\frac{E_{s}}{N_{0}} \gg 1\) and \(|\theta| \leq \frac{\pi}{2}\), \((5)\) can be approximted as:
-            $$ p_{\Theta}(\theta) \approx \frac{E_{s}}{\pi N_{0}}\cos(\theta)e^{-\frac{E_{s}\sin^2(\theta)}{N_{0}}}\tag{6} $$
-            The descision region of \(s_{0}\) can be described as \(\{\theta: -\frac{\pi}{m} < \theta < \frac{\pi}{m}\}\). Therefore,
-            $$ P_{e} = 1 - \int_{-\frac{\pi}{M}}^{\frac{\pi}{M}}p_{\Theta}(\theta)d\theta\tag{7} $$
-            Substituting \((7)\) in \((6)\) and substituting \(u=\sqrt{\frac{E_{s}}{N_{0}}}\sin(\theta)\):
-            $$ P_{e} \approx 1 - \int_{-\frac{\pi}{M}}^{\frac{\pi}{M}}\frac{E_{s}}{\pi N_{0}}\cos(\theta)e^{-\frac{E_{s}\sin^2(\theta)}{N_{0}}} d\theta $$
-            $$ \approx \frac{2}{\sqrt{\pi}}\int_{\sqrt{\frac{2E_{s}}{N_{0}}\sin(\frac{\pi}{M})}}^{\infty}e^{-u^2}du $$
-            $$ = 2Q\Bigg(\sqrt{2\frac{E_{s}}{N_{0}}}\sin\Big(\frac{\pi}{M}\Big)\Bigg) $$
-            $$ \therefore \boxed{P_{e} = 2Q\Bigg(\sqrt{2\frac{E_{s}}{N_{0}}}\sin\Big(\frac{\pi}{M}\Big)\Bigg)}\tag{8} $$
-        </section>
-        <section class="mb-5">
-            <h2>3 Design</h2>
-            <code class="fs-6">
+            $$ p_{\Theta}(\theta) \approx \frac{E_{s}}{\pi
+            N_{0}}\cos(\theta)e^{-\frac{E_{s}\sin^2(\theta)}{N_{0}}}\tag{6} $$
+            The descision region of \(s_{0}\) can be described as \(\{\theta: -\frac{\pi}{m} < \theta <
+                \frac{\pi}{m}\}\). Therefore, $$ P_{e}=1 -
+                \int_{-\frac{\pi}{M}}^{\frac{\pi}{M}}p_{\Theta}(\theta)d\theta\tag{7} $$ Substituting \((7)\) in \((6)\)
+                and substituting \(u=\sqrt{\frac{E_{s}}{N_{0}}}\sin(\theta)\): $$ P_{e} \approx 1 -
+                \int_{-\frac{\pi}{M}}^{\frac{\pi}{M}}\frac{E_{s}}{\pi
+                N_{0}}\cos(\theta)e^{-\frac{E_{s}\sin^2(\theta)}{N_{0}}} d\theta $$ $$ \approx
+                \frac{2}{\sqrt{\pi}}\int_{\sqrt{\frac{2E_{s}}{N_{0}}\sin(\frac{\pi}{M})}}^{\infty}e^{-u^2}du $$
+                $$=2Q\Bigg(\sqrt{2\frac{E_{s}}{N_{0}}}\sin\Big(\frac{\pi}{M}\Big)\Bigg) $$ $$ \therefore
+                \boxed{P_{e}=2Q\Bigg(\sqrt{2\frac{E_{s}}{N_{0}}}\sin\Big(\frac{\pi}{M}\Big)\Bigg)}\tag{8} $$ </section>
+                <section class="mb-5">
+                    <h2>3 Design</h2>
+                    <code class="fs-6">
                 <pre>
 Input: M, NO_OF_BITS, EB_N0_DB, Bk
 Output: SER
@@ -91,25 +97,25 @@ for EB_N0 in EB_N0_DB
 plot(SER, SER_THEORETICAL)
                 </pre>
             </code>
-        </section>
-        <section id="code" class="mb-5">
-            <h2>4 JavaScript Code</h2>
-        </section>
-        <section class="mb-5">
-            <h2>5 Results</h2>
-            <div id="plot"></div>
-            <div class="d-flex justify-content-center mt-4">
-                <div>
-                    <input type="number" class="form-control" id="M" placeholder="Enter M" min="2">
-                </div>
-                <button class="btn btn-primary mx-5" id="simulate">
-                    Simulate
-                    <span class="spinner-border spinner-border-sm d-none"></span>
-                </button>
-                <button class="btn btn-primary mx-5" id="simulation" disabled>Save Simulation Data</button>
-                <button class="btn btn-primary mx-5" id="theory" disabled>Save Theoretical Data</button>
-            </div>
-        </section>
+                </section>
+                <section id="code" class="mb-5">
+                    <h2>4 JavaScript Code</h2>
+                </section>
+                <section class="mb-5">
+                    <h2>5 Results</h2>
+                    <div id="plot"></div>
+                    <div class="d-flex justify-content-center mt-4">
+                        <div>
+                            <input type="number" class="form-control" id="M" placeholder="Enter M" min="2">
+                        </div>
+                        <button class="btn btn-primary mx-5" id="simulate">
+                            Simulate
+                            <span class="spinner-border spinner-border-sm d-none"></span>
+                        </button>
+                        <button class="btn btn-primary mx-5" id="simulation" disabled>Save Simulation Data</button>
+                        <button class="btn btn-primary mx-5" id="theory" disabled>Save Theoretical Data</button>
+                    </div>
+                </section>
     </main>
 
     <footer>
