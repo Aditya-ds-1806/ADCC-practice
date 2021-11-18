@@ -40,6 +40,10 @@ export default class DomHelpers {
             };
             const config = {
                 responsive: true,
+                toImageButtonOptions: {
+                    format: 'svg',
+                    scale: 1,
+                },
             };
             Plotly.newPlot('plot', traces, layout, config);
         };
