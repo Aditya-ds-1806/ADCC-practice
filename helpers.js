@@ -138,8 +138,8 @@ export default class Helpers {
                 const code = document.createElement('code');
                 const pre = document.createElement('pre');
                 const urls = {
-                    index: `${window.location.href}/index.js`,
-                    helpers: `${window.location.origin}/helpers.js`,
+                    index: './index.js',
+                    helpers: '../helpers.js',
                 };
                 const js = await (await fetch(urls[fileName])).text();
                 h3.textContent = `${fileName}.js`;
