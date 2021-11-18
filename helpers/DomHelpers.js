@@ -18,7 +18,7 @@ export default class DomHelpers {
                     autorange: true,
                     tickmode: 'linear',
                     title: {
-                        text: 'Eb/N0(dB)',
+                        text: 'Es/N0(dB)',
                         font: {
                             size: 20,
                         },
