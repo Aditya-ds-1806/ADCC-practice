@@ -109,6 +109,12 @@ export default class Helpers {
             return -1;
         };
 
+        this.clone = (node) => {
+            const newNode = node.cloneNode(true);
+            node.parentNode.replaceChild(newNode, node);
+            return newNode;
+        };
+
         this.dec2bin = (number, length) => {
             let binaryString = '';
             for (let i = 0; i < length - 1; i += 1) binaryString += '0';

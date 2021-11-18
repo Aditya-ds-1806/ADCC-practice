@@ -20,13 +20,8 @@ document.getElementById('simulate').addEventListener('click', async () => {
 
     setTimeout(() => {
         const [SER, SER_THEORETICAL] = MPSK(M, SB_N0_DB, NO_OF_SYMBOLS);
-        const newTheoData = theoData.cloneNode(true);
-        const newSimData = simData.cloneNode(true);
-
-        theoData.parentNode.replaceChild(newTheoData, theoData);
-        simData.parentNode.replaceChild(newSimData, simData);
-        theoData = newTheoData;
-        simData = newSimData;
+        theoData = h.clone(theoData);
+        simData = h.clone(simData);
         theoData.addEventListener('click', () => h.saveData(SB_N0_DB, SER_THEORETICAL, 'theory'));
         simData.addEventListener('click', () => h.saveData(SB_N0_DB, SER, 'simulation'));
         h.plot(['Theoretical', 'Simulation'], [SB_N0_DB, SER_THEORETICAL], [SB_N0_DB, SER]);
