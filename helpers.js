@@ -131,18 +131,14 @@ export default class Helpers {
             link.click();
         };
 
-        this.fetchJS = (...fileNames) => {
+        this.fetchJS = (...urls) => {
             const codeElement = document.getElementById('code');
-            fileNames.forEach(async (fileName) => {
+            urls.forEach(async (url) => {
                 const h3 = document.createElement('h3');
                 const code = document.createElement('code');
                 const pre = document.createElement('pre');
-                const urls = {
-                    index: './index.js',
-                    helpers: '../helpers.js',
-                };
-                const js = await (await fetch(urls[fileName])).text();
-                h3.textContent = `${fileName}.js`;
+                const js = await (await fetch(url)).text();
+                [, h3.textContent] = url.split('/', 2);
                 code.append(js);
                 pre.append(code);
                 codeElement.append(h3, pre);
