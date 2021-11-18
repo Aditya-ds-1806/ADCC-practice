@@ -1,16 +1,18 @@
-import Helpers from '../helpers.js';
+import DomHelpers from '../helpers/DomHelpers.js';
+import SimulationHelpers from '../helpers/SimulationHelpers.js';
 
-const h = new Helpers();
+const D = new DomHelpers();
+const S = new SimulationHelpers();
 
 export default function MPSK(M, SB_N0_DB, NO_OF_SYMBOLS) {
     const L = Math.log2(M);
     const NO_OF_BITS = L * NO_OF_SYMBOLS;
     const SER = new Array(SB_N0_DB.length);
-    const SER_THEORETICAL = h.getTheoreticalSerMpsk(SB_N0_DB, M);
+    const SER_THEORETICAL = S.getTheoreticalSerMpsk(SB_N0_DB, M);
 
     const phases = new Array(M).fill(0).map((_, i) => (2 * i * Math.PI) / M);
     const constellation = phases.map((phase) => [Math.cos(phase), Math.sin(phase)]);
-    const Bk = h.randi([0, 1], NO_OF_BITS); // message
+    const Bk = S.randi([0, 1], NO_OF_BITS); // message
     const Sk = Bk.reduce((acc, bit, i) => { // modulation
         if (i % L === 0) {
             const lbit = [bit];
@@ -21,8 +23,8 @@ export default function MPSK(M, SB_N0_DB, NO_OF_SYMBOLS) {
         return acc;
     }, []).map((s) => constellation[parseInt(s.join(''), 2)]);
     for (let i = 0; i < SB_N0_DB.length; i += 1) {
-        const Nk = h.getAWGN(SB_N0_DB[i], [NO_OF_SYMBOLS, 2]); // AWGN noise
-        const Yk = new Array(NO_OF_SYMBOLS).fill(0).map((_, j) => h.sum(Sk[j], Nk[j]));
+        const Nk = S.getAWGN(SB_N0_DB[i], [NO_OF_SYMBOLS, 2]); // AWGN noise
+        const Yk = new Array(NO_OF_SYMBOLS).fill(0).map((_, j) => S.sum(Sk[j], Nk[j]));
         const sHat = Yk.map(([x1, y1]) => {
             let shortestDistance = Infinity;
             let closestPoint;
@@ -33,7 +35,7 @@ export default function MPSK(M, SB_N0_DB, NO_OF_SYMBOLS) {
                     closestPoint = [x2, y2];
                 }
             });
-            return h.dec2bin(h.indexOf(constellation, closestPoint), L).split('').map((char) => Number(char));
+            return S.dec2bin(D.indexOf(constellation, closestPoint), L).split('').map((char) => Number(char));
         }); // ML decision rule
         const unchangedSymbols = sHat.reduce((acc, symbol, j) => {
             const s = Bk.slice(L * j, L * j + L);
