@@ -26,9 +26,9 @@ export default class Helpers {
         this.getTheoreticalBerBfsk = (EB_N0_DB) => EB_N0_DB
             .map((EB_N0) => this.qfunc(Math.sqrt(10 ** (EB_N0 / 10))));
 
-        this.getTheoreticalSerQam8 = (EB_N0_DB) => EB_N0_DB
-            .map((EB_N0) => 2.5 * this.qfunc(Math.sqrt((10 ** (EB_N0 / 10)) / 2))
-                - 1.5 * (this.qfunc(Math.sqrt((10 ** (EB_N0 / 10)) / 2))) ** 2);
+        this.getTheoreticalSerQam8 = (EB_N0_DB, Es) => EB_N0_DB
+            .map((EB_N0) => 2.5 * this.qfunc(Math.sqrt(((10 ** (EB_N0 / 10)) * Es) / 3))
+                - 1.5 * (this.qfunc(Math.sqrt(((10 ** (EB_N0 / 10)) * Es) / 3))) ** 2);
 
         this.getTheoreticalSerMpsk = (EB_N0_DB, M) => EB_N0_DB
             .map((EB_N0) => 2 * this
