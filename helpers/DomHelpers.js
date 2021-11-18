@@ -79,7 +79,7 @@ export default class DomHelpers {
                 const code = document.createElement('code');
                 const pre = document.createElement('pre');
                 const js = await (await fetch(url)).text();
-                [, , h3.textContent] = url.split('/', 3);
+                h3.textContent = url.split('/').slice(-1);
                 code.append(js);
                 pre.append(code);
                 codeElement.append(h3, pre);
