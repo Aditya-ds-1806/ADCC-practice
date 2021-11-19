@@ -81,10 +81,13 @@
             <h2>3 Design</h2>
             <code class="fs-6">
                 <pre>
-Input: NO_OF_BITS, EB_N0_DB, Bk, d=1
+Input: NO_OF_BITS, EB_N0_DB, d
 Output: SER
 
-constellation = [(±0.5 ± i, ±0.5)], i = 0, 1
+M = 8
+RIGHT = d / 2 + (M / 4 - 1) * d
+LEFT = -RIGHT
+constellation = [(±d/2 ± i*d, ±d/2)], i = 0, 1
 
 map(symbol) = constellation[bin2dec(symbol)]
 ML(Y) = argmin euclidean_distance(Y, constellation)
@@ -101,6 +104,7 @@ for EB_N0 in EB_N0_DB
 plot(SER, SER_THEORETICAL)
                 </pre>
             </code>
+            The time complexity of the algorithm is \(O(N^2)\).
         </section>
         <section id="code" class="mb-5">
             <h2>4 JavaScript Code</h2>

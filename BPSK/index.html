@@ -101,7 +101,7 @@
             <h2>3 Design</h2>
             <code class="fs-6">
                 <pre>
-Input: NO_OF_BITS, EB_N0_DB, Bk
+Input: NO_OF_BITS, EB_N0_DB
 Output: BER
 
 Xk = Bk(0 --> 1, 1 --> -1)
@@ -117,6 +117,7 @@ for EB_N0 in EB_N0_DB
 plot(BER, BER_THEORETICAL)
                 </pre>
             </code>
+            The time complexity of the algorithm is \(O(N^2)\).
         </section>
         <section id="code" class="mb-5">
             <h2>4 JavaScript Code</h2>

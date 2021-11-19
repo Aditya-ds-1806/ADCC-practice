@@ -64,7 +64,7 @@
             <h2>3 Design</h2>
             <code class="fs-6">
                 <pre>
-Input: NO_OF_BITS, EB_N0_DB, Bk
+Input: NO_OF_BITS, SB_N0_DB
 Output: SER
 
 map([bit1, bit2]) = {
@@ -83,8 +83,8 @@ ML([bit1, bit2]) = {
 
 Sk = map(Bk.group(2))
 
-for EB_N0 in EB_N0_DB
-    Nk = AWGN(EB_N0, 2D)
+for SB_N0 in SB_N0_DB
+    Nk = AWGN(SB_N0, 2D)
     Yk = Sk + Nk
     sHat = ML(Yk)
     unchangedSymbols = count(sHat === Sk)
@@ -93,6 +93,7 @@ for EB_N0 in EB_N0_DB
 plot(SER, SER_THEORETICAL)
                 </pre>
             </code>
+            The time complexity of the algorithm is \(O(N^2)\).
         </section>
         <section id="code" class="mb-5">
             <h2>4 JavaScript Code</h2>
