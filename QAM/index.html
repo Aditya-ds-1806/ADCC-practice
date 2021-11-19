@@ -123,50 +123,62 @@ plot(SER, SER_THEORETICAL)
                 <div class="col-sm-6">
                     <figure class="figure">
                         <img src="./D=0.1/images/10^5.svg" class="figure-img img-fluid rounded">
-                        <figcaption class="figure-caption text-center">Fig.2 Simulation result for \(d=0.1\) with \(3\times10^5\) bits
+                        <figcaption class="figure-caption text-center">Fig.2 Simulation result for \(d=0.1\) with
+                            \(3\times10^5\) bits
                         </figcaption>
                     </figure>
                 </div>
                 <div class="col-sm-6">
                     <figure class="figure">
                         <img src="./D=0.25/images/10^5.svg" class="figure-img img-fluid rounded">
-                        <figcaption class="figure-caption text-center">Fig.3 Simulation result for \(d=0.25\) with \(3\times10^5\) bits
+                        <figcaption class="figure-caption text-center">Fig.3 Simulation result for \(d=0.25\) with
+                            \(3\times10^5\) bits
                         </figcaption>
                     </figure>
                 </div>
                 <div class="col-sm-6">
                     <figure class="figure">
                         <img src="./D=0.5/images/10^5.svg" class="figure-img img-fluid rounded">
-                        <figcaption class="figure-caption text-center">Fig.4 Simulation result for \(d=0.5\) with \(3\times10^5\) bits
+                        <figcaption class="figure-caption text-center">Fig.4 Simulation result for \(d=0.5\) with
+                            \(3\times10^5\) bits
                         </figcaption>
                     </figure>
                 </div>
                 <div class="col-sm-6">
                     <figure class="figure">
                         <img src="./D=1/images/10^5.svg" class="figure-img img-fluid rounded">
-                        <figcaption class="figure-caption text-center">Fig.5 Simulation result for \(d=1\) with \(3\times10^5\) bits
+                        <figcaption class="figure-caption text-center">Fig.5 Simulation result for \(d=1\) with
+                            \(3\times10^5\) bits
                         </figcaption>
                     </figure>
                 </div>
             </div>
             <figure class="figure">
                 <img src="./images/comparison.png" class="figure-img img-fluid rounded">
-                <figcaption class="figure-caption text-center">Fig.6 Comparison of simulation results for \(d=0.1,0.25,0.5,1\)
+                <figcaption class="figure-caption text-center">Fig.6 Comparison of simulation results for
+                    \(d=0.1,0.25,0.5,1\)
                 </figcaption>
             </figure>
             <p>
-                From the above figures, it can be seen that for a given \(d\), the simulated \(P_{e}\) and theoretical \(P_{e}\)
-                match better with increase in the number of bits. This is because, to get confidence in the simulated results,
-                there must be sufficient number of bit errors. For example, to get a bit error rate of \(10^{-5}\), one needs to
-                send at least \(10^6\) bits. Also, it can be seen that the \(P_{e}\) reduces graudally with increase in
-                \(\frac{E_{s}}{N_{0}}\), the SNR per symbol. This is due to the fact that as the SNR per symbol increases,
+                From the above figures, it can be seen that for a given \(d\), the simulated \(P_{e}\) and theoretical
+                \(P_{e}\)
+                match better with increase in the number of bits. This is because, to get confidence in the simulated
+                results,
+                there must be sufficient number of bit errors. For example, to get a bit error rate of \(10^{-5}\), one
+                needs to
+                send at least \(10^6\) bits. Also, it can be seen that the \(P_{e}\) reduces gradually with increase in
+                \(\frac{E_{s}}{N_{0}}\), the SNR per symbol. This is due to the fact that as the SNR per symbol
+                increases,
                 the signal becomes less affected by the presence of noise, thus reducing errors in ML detection.
-                Finally, another important thing to be noted is that the simulated curve is not only affected by the symbol errors,
+                Finally, another important thing to be noted is that the simulated curve is not only affected by the
+                symbol errors,
                 but is also affected by floating point errors.
             </p>
             <p>
-                From figure \(6\), we can see that the waterfall curve tends to flatten with decrease in \(d\). This is because,
-                with decrease in \(d\) the decision region becomes smaller and hence vastly increases the chances of symbol error.
+                From figure \(6\), we can see that the waterfall curve tends to flatten with decrease in \(d\). This is
+                because,
+                with decrease in \(d\) the decision region becomes smaller and hence vastly increases the chances of
+                symbol error.
                 This also explains the fact that for larger \(d\), the curves start from a lower SER closer to 0 and as
                 \(D\to\infty, SER\to0\).
             </p>
