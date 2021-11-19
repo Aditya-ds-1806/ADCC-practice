@@ -51,8 +51,8 @@ export default class SimulationHelpers {
             if (cols === 1) return awgn;
             return awgn.reduce((acc, N, j) => {
                 if (j % cols === 0) {
-                    const diNoise = [N];
-                    acc.push(diNoise);
+                    const noise = [N];
+                    acc.push(noise);
                 } else {
                     acc[acc.length - 1].push(N);
                 }
