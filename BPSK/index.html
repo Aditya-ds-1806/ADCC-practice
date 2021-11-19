@@ -122,7 +122,7 @@ plot(BER, BER_THEORETICAL)
             <h2>4 JavaScript Code</h2>
         </section>
         <section class="mb-5">
-            <h2>5 Results</h2>
+            <h2>5 Results and Inference</h2>
             <div id="plot"></div>
             <div class="d-flex justify-content-center mt-4">
                 <button class="btn btn-primary mx-5" id="simulate">
@@ -132,12 +132,6 @@ plot(BER, BER_THEORETICAL)
                 <button class="btn btn-primary mx-5" id="simulation" disabled>Save Simulation Data</button>
                 <button class="btn btn-primary mx-5" id="theory" disabled>Save Theoretical Data</button>
             </div>
-        </section>
-    </main>
-
-    <footer>
-        <section class="mb-5">
-            <h2>6 Inference</h2>
             <div class="row">
                 <div class="col-sm-6">
                     <figure class="figure">
@@ -167,14 +161,15 @@ plot(BER, BER_THEORETICAL)
             <p>
                 From the above figures, it can be seen that simulated \(P_{e}\) and theoretical \(P_{e}\) match better with
                 increase in the number of bits. This is because, to get confidence in the simulated results, there must be 
-                sufficient number of bit errors. For example, to get a bit error rate of \(10^{-6}\), one needs to send at 
-                least \(10^7\) bits. Similar conclusions can be drawn from the other figures shown above. Also, it can be
+                sufficient number of bit errors. For example in figure \((5)\), to get a bit error rate of \(10^{-5}\), one needs to send at 
+                least \(10^6\) bits. Similar conclusions can be drawn from the other figures shown above. Also, it can be
                 seen that the \(P_{e}\) reduces graudally with increase in \(\frac{E_{b}}{N_{0}}\), the SNR per bit. This 
                 is due to the fact that as the SNR per bit increases, the signal becomes less affected by the presence of 
-                noise, thus reducing errors in ML detection.
+                noise, thus reducing errors in ML detection. Finally, another important thing to be noted is that the simulated
+                curve is not only affected by the symbol errors, but is also affected by floating point errors.
             </p>
         </section>
-    </footer>
+    </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jstat/1.9.5/jstat.min.js"
         integrity="sha512-MGT8BGoc8L3124PwHEGTC+M8Hu9oIbZOg8ENcd92sQKKidWKOOOZ6bqQemqYAX0yXJUnovOkF4Hx9gc/5lVxPw=="
