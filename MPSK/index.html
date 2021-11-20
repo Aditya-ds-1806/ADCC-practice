@@ -38,7 +38,7 @@
             <h3>2.2 SER</h3>
             Let \(E\) be the error bit and \(s_{0}, s_{1}, \dots s_{M-1}\) be the possible symbols. Let \(s_{i}\)
             be the \(i^{th}\) symbol and since all symbols are equally likely:
-            $$ P(E=1) = \frac{1}{4}\sum_{i=0}^3 P(E=1 \mid s_{i})\tag{1} $$
+            $$ P(E=1) = \frac{1}{M}\sum_{i=0}^{M-1} P(E=1 \mid s_{i})\tag{1} $$
             Owing to the symmetry of the constellation,
             $$ P(E=1 \mid s_{0}) = P(E=1 \mid s_{1}) = \dots = P(E=1 \mid s_{M-1})\tag{2} $$
             From (1) and (2),
